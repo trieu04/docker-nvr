@@ -39,8 +39,8 @@ service cron start
 
 echo "Saving \"$CAMERA_NAME\" camera stream..."
 ffmpeg \
-    -i "$STREAM_URL" \
     -rtsp_transport tcp \
+    -i "$STREAM_URL" \
     -c:v copy \
     -c:a aac \
     -f segment \
