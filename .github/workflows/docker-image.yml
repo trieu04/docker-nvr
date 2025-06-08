@@ -1,8 +1,6 @@
 name: docker-image
 
 on:
-  schedule:
-    - cron: "37 0 * * 1"
   push:
     tags:
       - "*"
@@ -11,6 +9,8 @@ on:
   pull_request:
     branches:
       - "main"
+  workflow_dispatch:
+   
 
 permissions:
   contents: read
