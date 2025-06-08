@@ -1,6 +1,8 @@
+[![docker-image](https://github.com/trieu04/docker-nvr/actions/workflows/docker-image.yml/badge.svg)](https://github.com/trieu04/docker-nvr/actions/workflows/docker-image.yml)
+
 # docker-nvr
 
-A [docker container](https://hub.docker.com/r/e7db/nvr) to record any IP camera stream to disk.
+A [docker container](https://hub.docker.com/r/ntdm/nvr) to record any IP camera stream to disk.
 
 ## Usage
 
@@ -12,7 +14,7 @@ docker run -it --rm  --name nvr \
   -e STREAM_URL="rtsp://username:password@ip:port/path" \
   -e CAMERA_NAME="My Camera" \
   -e FFMPEG_OPTIONS="-vf scale=1280:720" \
-  e7db/nvr
+  ntdm/nvr
 ```
 
 ### Docker Compose
@@ -20,7 +22,7 @@ docker run -it --rm  --name nvr \
 ```
 services:
   camera-1:
-    image: e7db/nvr
+    image: ntdm/nvr
     environment:
       - TZ=America/Chicago
       - STREAM_URL="rtsp://username:password@ip:port/path"
@@ -29,7 +31,7 @@ services:
     volumes:
       - /path/to/local/recordings:/var/recordings
   camera2:
-    image: e7db/nvr
+    image: ntdm/nvr
     environment:
       - TZ=Asia/Ho_Chi_Minh
       - DAYS=30
