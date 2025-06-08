@@ -11,6 +11,7 @@ docker run -it --rm  --name nvr \
   -v /path/to/local/recordings:/var/recordings \
   -e STREAM_URL="rtsp://username:password@ip:port/path" \
   -e CAMERA_NAME="My Camera" \
+  -e FFMPEG_OPTIONS="-vf scale=1280:720" \
   e7db/nvr
 ```
 
@@ -24,17 +25,19 @@ services:
       - TZ=America/Chicago
       - STREAM_URL="rtsp://username:password@ip:port/path"
       - CAMERA_NAME="Chicago Office"
+      - FFMPEG_OPTIONS="-vf scale=1280:720"
     volumes:
       - /path/to/local/recordings:/var/recordings
   camera2:
     image: e7db/nvr
     environment:
-      - TZ=America/New_York
+      - TZ=Asia/Ho_Chi_Minh
       - DAYS=30
       - STREAM_URL="rtsp://username:password@ip:port/path"
       - CAMERA_NAME="New York Warehouse"
       - VIDEO_SEGMENT_TIME=60
       - VIDEO_FORMAT=flv
+      - FFMPEG_OPTIONS="-vf scale=1280:720"
     volumes:
       - /path/to/local/recordings:/var/recordings
 ```
@@ -52,6 +55,7 @@ Find below a table listing all the different parameters you can use with the con
 | `LOGLEVEL`           | info          | The ffmpeg log level. |
 | `VIDEO_SEGMENT_TIME` | 300           | The length in seconds of each recording file. |
 | `VIDEO_FORMAT`       | mp4           | The daily videos output format. You can use any ffmpeg supported format. Recommended value: `mp4`, `ts`, `mkv` or `flv`. |
+| `FFMPEG_OPTIONS`     |               | Additional options to pass to ffmpeg for advanced configuration (e.g., filters, codecs). |
 
 By default, 5 minutes segments of `.ts` video files will be created. A daily video will be assembled from parts a few minutes after midnight.
 

@@ -20,6 +20,7 @@ echo "  CAMERA_NAME: $CAMERA_NAME"
 echo "  DAYS: $DAYS"
 echo "  VIDEO_SEGMENT_TIME: $VIDEO_SEGMENT_TIME"
 echo "  VIDEO_FORMAT: $VIDEO_FORMAT"
+echo "  FFMPEG_OPTIONS: $FFMPEG_OPTIONS"
 echo
 
 echo "[CRON] Concatenate daily recorded files..."
@@ -48,5 +49,6 @@ ffmpeg \
     -strftime 1 \
     "$DIRECTORY"/%Y-%m-%d_%H-%M-%S.ts \
     -loglevel $LOGLEVEL \
+    $FFMPEG_OPTIONS \
     1>>/proc/1/fd/1 \
     2>>/proc/1/fd/2
