@@ -21,7 +21,7 @@ echo "  DAYS: $DAYS"
 echo "  VIDEO_SEGMENT_TIME: $VIDEO_SEGMENT_TIME"
 echo "  VIDEO_FORMAT: $VIDEO_FORMAT"
 echo "  FFMPEG_OPTIONS: $FFMPEG_OPTIONS"
-echo
+echo "  LOGLEVEL: $LOGLEVEL"
 
 echo "[CRON] Concatenate daily recorded files..."
 echo "#!/bin/bash" >"/etc/cron.nvr/1-concatenate"
@@ -38,17 +38,18 @@ fi
 service cron start
 
 echo "Saving \"$CAMERA_NAME\" camera stream..."
-ffmpeg \
-    -rtsp_transport tcp \
-    -i "$STREAM_URL" \
-    -c:v copy \
-    -c:a aac \
-    -f segment \
-    -segment_time "$VIDEO_SEGMENT_TIME" \
-    -segment_atclocktime 1 \
-    -strftime 1 \
-    "$DIRECTORY"/%Y-%m-%d_%H-%M-%S.ts \
-    -loglevel $LOGLEVEL \
-    $FFMPEG_OPTIONS \
-    1>>/proc/1/fd/1 \
-    2>>/proc/1/fd/2
+args=(
+    -loglevel $LOGLEVEL
+    $FFMPEG_OPTIONS
+    -rtsp_transport tcp
+    -i "$STREAM_URL"
+    -c:v copy
+    -c:a aac
+    -f segment
+    -segment_time "$VIDEO_SEGMENT_TIME"
+    -segment_atclocktime 1
+    -strftime 1
+    "$DIRECTORY"/%Y-%m-%d_%H-%M-%S.ts
+)
+ffmpeg "${args[@]}" 1>>/proc/1/fd/1 2>>/proc/1/fd/2
+
