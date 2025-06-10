@@ -58,6 +58,7 @@ Find below a table listing all the different parameters you can use with the con
 | `VIDEO_SEGMENT_TIME` | 300           | The length in seconds of each recording file. |
 | `VIDEO_FORMAT`       | mp4           | The daily videos output format. You can use any ffmpeg supported format. Recommended value: `mp4`, `ts`, `mkv` or `flv`. |
 | `FFMPEG_OPTIONS`     |               | Additional options to pass to ffmpeg for advanced configuration (e.g., filters, codecs). |
+| `ENABLE_CONCATENATION` | true        | Enable or disable daily video concatenation. Set to `false` to skip assembling daily videos from segments. |
 
 By default, 5 minutes segments of `.ts` video files will be created. A daily video will be assembled from parts a few minutes after midnight.
 

@@ -22,11 +22,16 @@ echo "  VIDEO_SEGMENT_TIME: $VIDEO_SEGMENT_TIME"
 echo "  VIDEO_FORMAT: $VIDEO_FORMAT"
 echo "  FFMPEG_OPTIONS: $FFMPEG_OPTIONS"
 echo "  LOGLEVEL: $LOGLEVEL"
+echo "  ENABLE_CONCATENATION: $ENABLE_CONCATENATION"
+echo
 
-echo "[CRON] Concatenate daily recorded files..."
-echo "#!/bin/bash" >"/etc/cron.nvr/1-concatenate"
-echo "/opt/nvr/concatenate.sh "$CAMERA_NAME" \$(date -d 'yesterday' '+%Y-%m-%d')" $VIDEO_FORMAT >>"/etc/cron.nvr/1-concatenate"
-chmod +x "/etc/cron.nvr/1-concatenate"
+if [ "$ENABLE_CONCATENATION" = "true" ]; then
+    echo "Enabling concatenation of daily recorded files..."
+    echo "[CRON] Concatenate daily recorded files..."
+    echo "#!/bin/bash" >"/etc/cron.nvr/1-concatenate"
+    echo "/opt/nvr/concatenate.sh "$CAMERA_NAME" \$(date -d 'yesterday' '+%Y-%m-%d')" $VIDEO_FORMAT >>"/etc/cron.nvr/1-concatenate"
+    chmod +x "/etc/cron.nvr/1-concatenate"
+fi
 
 if [ ! -z "$DAYS" ]; then
     echo "[CRON] Clean up recordings older than $DAYS days..."

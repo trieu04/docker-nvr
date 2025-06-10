@@ -3,6 +3,7 @@ ENV DAYS=30
 ENV LOGLEVEL=info
 ENV VIDEO_SEGMENT_TIME=300
 ENV VIDEO_FORMAT=mp4
+ENV ENABLE_CONCATENATION=true
 RUN apt-get update && apt-get install -y cron
 RUN mkdir /etc/cron.nvr
 VOLUME [ "/var/recordings" ]
